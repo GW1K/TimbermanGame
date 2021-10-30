@@ -10,6 +10,7 @@ public:
 private:
 	sf::RenderWindow* window;
 	sf::Event sfEvent;
+	
 
 	//Settings
 	std::string title;
@@ -23,6 +24,5 @@ private:
 	//Functions
 	void initVideoSettings();
 	void initWindow();
-	void initKeys();
 };
 

@@ -1,1 +1,4 @@
-﻿  Engine2D.vcxproj -> C:\Users\barte\OneDrive\Pulpit\OneDrive\#Studia3\Engine2D\x64\Debug\Engine2D.exe
+﻿  Engine.cpp
+C:\Users\pc\OneDrive\#Studia3\Engine2D\Timberman\Engine2D\Engine.cpp(34,71): warning C4244: "argument": konwersja z "unsigned int" do "float", możliwa utrata danych
+C:\Users\pc\OneDrive\#Studia3\Engine2D\Timberman\Engine2D\Engine.cpp(34,43): warning C4244: "argument": konwersja z "unsigned int" do "float", możliwa utrata danych
+  Engine2D.vcxproj -> C:\Users\pc\OneDrive\#Studia3\Engine2D\Timberman\x64\Debug\Engine2D.exe
