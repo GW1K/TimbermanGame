@@ -50,6 +50,7 @@ void Engine::run() {
 			player.moveLeft();
 		}
 		window->clear();
+		background.Draw(*window);
 		player.draw(*window);
 		window->display();
 	}

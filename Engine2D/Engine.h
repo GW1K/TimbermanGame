@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Player.h"
+#include "Background.h"
 class Engine
 {
 public:
@@ -12,6 +13,7 @@ private:
 	sf::RenderWindow *window;
 	sf::Event sfEvent;
 	Player player;
+	Background background;
 
 	
 
@@ -23,6 +25,8 @@ private:
 	unsigned frameRateLimit;
 
 	//Clock
+	sf::Clock clock;
+	sf::Time gameTime;
 
 	//Functions
 	void initVideoSettings();
