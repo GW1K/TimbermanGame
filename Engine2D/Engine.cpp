@@ -3,12 +3,12 @@
 
 
 void Engine::initVideoSettings() {
-	this->title = "Nazwa";
+	this->title = "Timberman";
 	this->fullscreen = false;
 	this->vSync = false;
 	this->frameRateLimit = 120;
-	this->resolution.width = 640;
-	this->resolution.height = 480;
+	this->resolution.width = 1024;
+	this->resolution.height = 720;
 }
 void Engine::initWindow() {
 	if (this->fullscreen) {
@@ -29,9 +29,6 @@ void Engine::initWindow() {
 }
 
 void Engine::run() {
-	sf::RectangleShape player(sf::Vector2f(100.0f, 100.0f));
-	player.setFillColor(sf::Color::Blue);
-	player.setPosition(this->resolution.width/2, this->resolution.height / 2);
 	while (this->window->isOpen()) {
 		while (this->window->pollEvent(this->sfEvent)) {
 			switch (sfEvent.type) {
@@ -43,23 +40,17 @@ void Engine::run() {
 				break;
 			}
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-			player.move(-5.3f, 0.0f);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-			player.move(5.3f, 0.0f);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-			player.move(0.0f, -0.3f);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-			player.move(0.0f, 0.3f);
-		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
 			this->window->close();
 		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
+			player.moveRight();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
+			player.moveLeft();
+		}
 		window->clear();
-		window->draw(player);
+		player.draw(*window);
 		window->display();
 	}
 }

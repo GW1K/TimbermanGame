@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Player.h"
 class Engine
 {
 public:
@@ -8,8 +9,10 @@ public:
 	void run();
 
 private:
-	sf::RenderWindow* window;
+	sf::RenderWindow *window;
 	sf::Event sfEvent;
+	Player player;
+
 	
 
 	//Settings
