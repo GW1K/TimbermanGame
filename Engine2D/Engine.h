@@ -2,6 +2,12 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
 #include "Background.h"
+#include "GameMenu.h"
+
+
+enum   GameScreens{  MENU_SCREEN,GAME_SCREEN };
+
+
 class Engine
 {
 public:
@@ -14,6 +20,8 @@ private:
 	sf::Event sfEvent;
 	Player player;
 	Background background;
+	GameMenu  startMenu;
+	GameScreens gameScreen;
 
 	
 

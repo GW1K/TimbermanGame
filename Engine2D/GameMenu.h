@@ -3,13 +3,29 @@
 class GameMenu
 {
 private:
-	sf::RenderWindow* menuWindow;
+
+	
 	sf::RectangleShape bg;
 	sf::RectangleShape btnPlay;
 	sf::RectangleShape btnExit;
+	sf::Font font;
+	sf::Text text[2];
+	sf::RenderWindow* window;
+	
+	
+	
+
 
 public:
-	GameMenu(sf::RenderWindow* menuWindow);
+
+	GameMenu() {};
+	GameMenu(sf::RenderWindow* window);
+	~GameMenu();
+	void draw();
+	void MoveUp();
+	void MoveDown();
+	int selectedIndex;
+	
 
 };
 
