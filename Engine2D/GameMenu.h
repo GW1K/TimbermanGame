@@ -1,23 +1,17 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+
 class GameMenu
 {
 private:
-
-	
+	sf::RenderWindow *window;
 	sf::RectangleShape bg;
 	sf::RectangleShape btnPlay;
 	sf::RectangleShape btnExit;
 	sf::Font font;
 	sf::Text text[2];
-	sf::RenderWindow* window;
-	
-	
-	
-
 
 public:
-
 	GameMenu() {};
 	GameMenu(sf::RenderWindow* window);
 	~GameMenu();
@@ -25,7 +19,5 @@ public:
 	void MoveUp();
 	void MoveDown();
 	int selectedIndex;
-	
-
 };
 

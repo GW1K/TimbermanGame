@@ -1,9 +1,7 @@
 #include "Engine.h"
 
-
-
-
-void Engine::initVideoSettings() {
+void Engine::initVideoSettings()
+{
 	this->title = "Timberman";
 	this->fullscreen = false;
 	this->vSync = false;
@@ -11,23 +9,17 @@ void Engine::initVideoSettings() {
 	this->resolution.width = 1024;
 	this->resolution.height = 720;
 }
-void Engine::initWindow() {
 
-
-	
-
-
+void Engine::initWindow() 
+{
 	//this->startMenu = new GameMenu();
-
-	
-	gameScreen = GameScreens::MENU_SCREEN;
+	this->gameScreen = GameScreens::MENU_SCREEN;
 	if (this->fullscreen) {
 		this->window = new sf::RenderWindow(
 			this->resolution,
 			this->title,
 			sf::Style::Fullscreen
 		);
-
 	}
 	else {
 		this->window = new sf::RenderWindow(
@@ -37,10 +29,10 @@ void Engine::initWindow() {
 		);
 	}
 	this->window->setFramerateLimit(this->frameRateLimit);
-	startMenu = GameMenu(window);
 }
 
 void Engine::run() {
+	GameMenu startMenu(window);
 	while (this->window->isOpen()) {
 		while (this->window->pollEvent(this->sfEvent)) {
 			switch (sfEvent.type) {
@@ -71,43 +63,38 @@ void Engine::run() {
 		{
 			if (startMenu.selectedIndex == 1)
 			{
-				gameScreen = GameScreens::GAME_SCREEN;
+				this->gameScreen = GameScreens::GAME_SCREEN;
 
 			}
 			if (startMenu.selectedIndex == 0)
 			{
 				this->window->close();
-
 			}
-
-			
 		}
 
 		window->clear();
 		background.Draw(*window);
 		
-		if (gameScreen == GameScreens::MENU_SCREEN)
+		if (this->gameScreen == GameScreens::MENU_SCREEN)
 		{
 			startMenu.draw();
 		}
-		if (gameScreen == GameScreens::GAME_SCREEN)
+		if (this->gameScreen == GameScreens::GAME_SCREEN)
 		{
-			player.draw(*window);
+			this->player.draw(*window);
 		}
-
 		
 		window->display();
-		
-		
 	}
 }
 
-
-
-Engine::Engine() {
+Engine::Engine() 
+{
 	this->initVideoSettings();
 	this->initWindow();
 }
-Engine::~Engine() {
+
+Engine::~Engine() 
+{
 	delete this->window;
 }
