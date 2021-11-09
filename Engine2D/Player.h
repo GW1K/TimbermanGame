@@ -5,14 +5,13 @@
 class Player
 {
 private:
-	int posX, posY;
 	sf::CircleShape player;
+	sf::RenderWindow* window;
 
 public:
-	Player();
+	Player(sf::RenderWindow* window);
 	void moveRight();
 	void moveLeft();
-
-	virtual void draw(sf::RenderWindow& window);
+	virtual void draw();
 };
 

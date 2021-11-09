@@ -1,4 +1,40 @@
-﻿  Background.cpp
-  GameMenu.cpp
-  Generowanie kodu...
-  Engine2D.vcxproj -> C:\Users\Wiktor\source\repos\TimbermanGame\x64\Debug\Engine2D.exe
+﻿  Player.cpp
+D:\Engine2D\Timberman\Engine2D\Player.cpp(8,91): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+D:\Engine2D\Timberman\Engine2D\Player.cpp(8,61): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+D:\Engine2D\Timberman\Engine2D\Player.cpp(11,82): warning C4244: "argument": konwersja z "T" do "float", możliwa utrata danych
+          with
+          [
+              T=unsigned int
+          ]
+D:\Engine2D\Timberman\Engine2D\Player.cpp(11,50): warning C4244: "argument": konwersja z "T" do "float", możliwa utrata danych
+          with
+          [
+              T=unsigned int
+          ]
+D:\Engine2D\Timberman\Engine2D\Player.cpp(14,82): warning C4244: "argument": konwersja z "T" do "float", możliwa utrata danych
+          with
+          [
+              T=unsigned int
+          ]
+D:\Engine2D\Timberman\Engine2D\Player.cpp(14,50): warning C4244: "argument": konwersja z "T" do "float", możliwa utrata danych
+          with
+          [
+              T=unsigned int
+          ]
+  Engine2D.vcxproj -> D:\Engine2D\Timberman\x64\Debug\Engine2D.exe

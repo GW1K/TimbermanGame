@@ -1,14 +1,15 @@
 #include "Background.h"
 
-Background::Background()
+Background::Background(sf::RenderWindow* window)
 {
+	this->window = window;
 	//Tymczasowo kiedyœ bedzie ³adowanie teksutr 
 	bg.setPosition(0, 0);
-	bg.setSize(sf::Vector2f(1024,720));
+	bg.setSize(sf::Vector2f(window->getSize().x,window->getSize().y));
 	bg.setFillColor(sf::Color(70, 70, 70));
 }
 
-void Background::Draw(sf::RenderWindow& window)
+void Background::Draw()
 {
-	window.draw(bg);
+	this->window->draw(bg);
 }

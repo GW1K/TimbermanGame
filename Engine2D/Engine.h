@@ -16,8 +16,6 @@ public:
 private:
 	sf::RenderWindow *window;
 	sf::Event sfEvent;
-	Player player;
-	Background background;
 	GameScreens gameScreen;
 
 	//Settings

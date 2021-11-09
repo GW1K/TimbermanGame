@@ -3,9 +3,10 @@
 class Background
 {
 private:
+	sf::RenderWindow* window;
 	sf::RectangleShape bg;
 public:
-	Background();
-	virtual void Draw(sf::RenderWindow& window);
+	Background(sf::RenderWindow* window);
+	virtual void Draw();
 };
 

@@ -3,7 +3,7 @@
 void Engine::initVideoSettings()
 {
 	this->title = "Timberman";
-	this->fullscreen = false;
+	this->fullscreen = true;
 	this->vSync = false;
 	this->frameRateLimit = 120;
 	this->resolution.width = 1024;
@@ -33,6 +33,8 @@ void Engine::initWindow()
 
 void Engine::run() {
 	GameMenu startMenu(window);
+	Player player(window);
+	Background background(window);
 	while (this->window->isOpen()) {
 		while (this->window->pollEvent(this->sfEvent)) {
 			switch (sfEvent.type) {
@@ -45,19 +47,23 @@ void Engine::run() {
 			}
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
-			this->window->close();
+			this->gameScreen = GameScreens::MENU_SCREEN;
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
-			player.moveRight();
+		if (this->gameScreen == GameScreens::GAME_SCREEN) {
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
+				player.moveRight();
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
+				player.moveLeft();
+			}
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
-			player.moveLeft();
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
-			startMenu.MoveUp();
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
-			startMenu.MoveDown();
+		if (this->gameScreen == GameScreens::MENU_SCREEN) {
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
+				startMenu.MoveUp();
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
+				startMenu.MoveDown();
+			}
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
 		{
@@ -73,7 +79,7 @@ void Engine::run() {
 		}
 
 		window->clear();
-		background.Draw(*window);
+		background.Draw();
 		
 		if (this->gameScreen == GameScreens::MENU_SCREEN)
 		{
@@ -81,7 +87,7 @@ void Engine::run() {
 		}
 		if (this->gameScreen == GameScreens::GAME_SCREEN)
 		{
-			this->player.draw(*window);
+			player.draw();
 		}
 		
 		window->display();
