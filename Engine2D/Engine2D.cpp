@@ -1,11 +1,8 @@
-﻿
-#include <iostream>
-#include "Engine.h"
+﻿#include "Engine.h"
+
 int main()
 {
-    Engine engine;
-    engine.run();
-
+    Engine &gameEngine = Engine::getInstance();
+    gameEngine.run();
     return 0;
 }
-

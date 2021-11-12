@@ -4,6 +4,8 @@
 class GameMenu
 {
 private:
+	GameMenu();
+
 	sf::RenderWindow *window;
 	sf::RectangleShape bg;
 	sf::RectangleShape btnPlay;
@@ -12,7 +14,6 @@ private:
 	sf::Text text[2];
 
 public:
-	GameMenu() {};
 	GameMenu(sf::RenderWindow* window);
 	~GameMenu();
 	void draw();

@@ -1,18 +1,23 @@
 #include "Engine.h"
 
+Engine::Engine()
+{
+	this->initVideoSettings();
+	this->initWindow();
+}
+
 void Engine::initVideoSettings()
 {
 	this->title = "Timberman";
-	this->fullscreen = true;
+	this->fullscreen = false;
 	this->vSync = false;
 	this->frameRateLimit = 120;
 	this->resolution.width = 1024;
 	this->resolution.height = 720;
 }
 
-void Engine::initWindow() 
+void Engine::initWindow()
 {
-	//this->startMenu = new GameMenu();
 	this->gameScreen = GameScreens::MENU_SCREEN;
 	if (this->fullscreen) {
 		this->window = new sf::RenderWindow(
@@ -29,10 +34,10 @@ void Engine::initWindow()
 		);
 	}
 	this->window->setFramerateLimit(this->frameRateLimit);
+	this->startMenu = new GameMenu(this->window);
 }
 
 void Engine::run() {
-	GameMenu startMenu(window);
 	Player player(window);
 	Background background(window);
 	while (this->window->isOpen()) {
@@ -59,20 +64,20 @@ void Engine::run() {
 		}
 		if (this->gameScreen == GameScreens::MENU_SCREEN) {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
-				startMenu.MoveUp();
+				startMenu->MoveUp();
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
-				startMenu.MoveDown();
+				startMenu->MoveDown();
 			}
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
 		{
-			if (startMenu.selectedIndex == 1)
+			if (startMenu->selectedIndex == 1)
 			{
 				this->gameScreen = GameScreens::GAME_SCREEN;
 
 			}
-			if (startMenu.selectedIndex == 0)
+			if (startMenu->selectedIndex == 0)
 			{
 				this->window->close();
 			}
@@ -83,7 +88,7 @@ void Engine::run() {
 		
 		if (this->gameScreen == GameScreens::MENU_SCREEN)
 		{
-			startMenu.draw();
+			startMenu->draw();
 		}
 		if (this->gameScreen == GameScreens::GAME_SCREEN)
 		{
@@ -92,15 +97,4 @@ void Engine::run() {
 		
 		window->display();
 	}
-}
-
-Engine::Engine() 
-{
-	this->initVideoSettings();
-	this->initWindow();
-}
-
-Engine::~Engine() 
-{
-	delete this->window;
 }

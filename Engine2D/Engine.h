@@ -8,14 +8,24 @@ enum class GameScreens{ MENU_SCREEN, GAME_SCREEN };
 
 class Engine
 {
-public:
+private:
 	Engine();
-	~Engine();
+	Engine(Engine const& copy);
+	Engine& operator=(Engine const& copy);
+
+public:
+	static Engine& getInstance()
+	{
+		static Engine instance;
+		return instance;
+	}
 	void run();
 
 private:
+
 	sf::RenderWindow *window;
 	sf::Event sfEvent;
+	GameMenu* startMenu;
 	GameScreens gameScreen;
 
 	//Settings
