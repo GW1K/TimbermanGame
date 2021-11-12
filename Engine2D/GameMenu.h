@@ -1,24 +1,28 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "GameMainWindow.h"
+
+class GameMainWindow;
 
 class GameMenu
 {
 private:
 	GameMenu();
 
-	sf::RenderWindow *window;
+	GameMainWindow* window;
 	sf::RectangleShape bg;
 	sf::RectangleShape btnPlay;
 	sf::RectangleShape btnExit;
 	sf::Font font;
 	sf::Text text[2];
+	int selectedIndex;
 
 public:
-	GameMenu(sf::RenderWindow* window);
+	GameMenu(GameMainWindow* window);
 	~GameMenu();
 	void draw();
-	void MoveUp();
-	void MoveDown();
-	int selectedIndex;
+	void moveUp();
+	void moveDown();
+	int getSelectedIndex();
 };
 

@@ -9,7 +9,7 @@ Background::Background(sf::RenderWindow* window)
 	bg.setFillColor(sf::Color(70, 70, 70));
 }
 
-void Background::Draw()
+void Background::draw()
 {
 	this->window->draw(bg);
 }

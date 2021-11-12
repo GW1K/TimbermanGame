@@ -1,9 +1,7 @@
 #include "GameMenu.h"
-#include "Engine.h"
 #include <iostream>
-#include <cstdio>
 
-GameMenu::GameMenu(sf::RenderWindow* window)
+GameMenu::GameMenu(GameMainWindow* window)
 {
 	this->window = window;
 	if (!this->font.loadFromFile("./Assets/fonts/font.ttf"))
@@ -43,7 +41,7 @@ void GameMenu::draw()
 	}
 }
 
-void GameMenu::MoveUp() 
+void GameMenu::moveUp() 
 {
 	if (selectedIndex + 1 < 2)
 	{
@@ -53,7 +51,7 @@ void GameMenu::MoveUp()
 	}
 }
 
-void GameMenu::MoveDown()
+void GameMenu::moveDown()
 {
 	if (selectedIndex - 1 >= 0)
 	{
@@ -61,4 +59,9 @@ void GameMenu::MoveDown()
 		selectedIndex--;
 		this->text[selectedIndex].setFillColor(sf::Color::White);
 	}
+}
+
+int GameMenu::getSelectedIndex()
+{
+	return this->selectedIndex;
 }

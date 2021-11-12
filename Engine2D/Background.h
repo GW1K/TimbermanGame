@@ -7,6 +7,6 @@ private:
 	sf::RectangleShape bg;
 public:
 	Background(sf::RenderWindow* window);
-	virtual void Draw();
+	virtual void draw();
 };
 
