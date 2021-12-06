@@ -1,87 +1,74 @@
 #include "Engine.h"
 #include <iostream>
+#include "Player.h"
+#include "Background.h"
+#include "MainMenuState.h"
 
-Engine::Engine()
+Engine::Engine():
+	pLogger("../Logger.txt"), dt(1.0f / 60.0f)
 {
-	this->window = new GameMainWindow();
+	pEngineData.window = new GameMainWindow();
+	pEngineData.stateMachine.addState((State*)new MainMenuState(pEngineData));
 }
 
 Engine::~Engine()
 {
-	delete this->window;
+	delete pEngineData.window;
 }
 
 void Engine::run()
 {
-	Player player(window);
-	Background menuBackground(window,"./Assets/background/menubg.png");
-	Background gameBackground(window, "./Assets/background/gamebg.png");
-	while (this->window->isOpen())
+	pLogger.log("Engine is running ...");
+	
+	float newTime, frameTime, interpolation;
+
+	float currentTime = this->mClock.getElapsedTime().asSeconds();
+	float accumulator = 0.0f;
+	this->dt = 1.0f / this->pEngineData.window->getFrameRateLimit();
+	
+	while (pEngineData.window->isOpen())
 	{
-		while (this->window->pollEvent(this->sfEvent))
-		{
-			switch (sfEvent.type)
-			{
-				case sf::Event::Closed:
-					this->window->close();
-					break;
+		this->pEngineData.stateMachine.processStateChanges();
 
-				case sf::Event::Resized:
-					printf("Width: %i height: %i\n", sfEvent.size.width, sfEvent.size.height);
-					break;
-			}
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+		newTime = this->mClock.getElapsedTime().asSeconds();
+		frameTime = newTime - currentTime;
+		if (frameTime >= 0.25f)
 		{
-			this->window->setCurrentScreen(GameScreens::MENU_SCREEN);
+			frameTime = 0.25f;
 		}
-		if (this->window->getCurrentScreen() == GameScreens::GAME_SCREEN)
+		currentTime = newTime;
+		accumulator += frameTime;
+		while (accumulator >= dt)
 		{
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
-			{
-				player.moveRight();
-			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
-			{
-				player.moveLeft();
-			}
-		}
-		if (this->window->getCurrentScreen() == GameScreens::MENU_SCREEN)
-		{
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
-			{
-				this->window->getStartMenu()->moveUp();
-			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
-			{
-				this->window->getStartMenu()->moveDown();
-			}
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
-		{
-			if (this->window->getStartMenu()->getSelectedIndex() == 1)
-			{
-				this->window->setCurrentScreen(GameScreens::GAME_SCREEN);
-			}
-			if (this->window->getStartMenu()->getSelectedIndex() == 0)
-			{
-				this->window->close();
-			}
-		}
+			handleEvent();
 
-		window->clear();
-		
-		if (this->window->getCurrentScreen() == GameScreens::MENU_SCREEN)
-		{
-			menuBackground.draw();
-			this->window->getStartMenu()->draw();
+			this->pEngineData.stateMachine.getCurrentState().handleInput();
+			this->pEngineData.stateMachine.getCurrentState().update(dt);
+
+			accumulator -= dt;
 		}
-		if (this->window->getCurrentScreen() == GameScreens::GAME_SCREEN)
+		interpolation = accumulator / dt;
+		this->pEngineData.stateMachine.getCurrentState().draw(interpolation);
+	}
+}
+
+/**
+ * \brief Metoda obslugujaca eventy
+ *
+ */
+void Engine::handleEvent()
+{
+	while (pEngineData.window->pollEvent(this->pEvent))
+	{
+		switch (pEvent.type)
 		{
-			gameBackground.draw();
-			player.draw();
+		case sf::Event::Closed:
+			pEngineData.window->close();
+			pLogger.log("Application closed");
+			break;
+		case sf::Event::Resized:
+			pLogger.log("Width: %d Height: %d", pEvent.size.width, pEvent.size.height);
+			break;
 		}
-		
-		window->display();
 	}
 }

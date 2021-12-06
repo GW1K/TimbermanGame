@@ -1,8 +1,22 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Player.h"
-#include "Background.h"
 #include "GameMainWindow.h"
+#include "StateMachine.h"
+#include "AssetManager.h"
+#include "InputManager.h"
+#include "Logger.h"
+
+/**
+ * \brief Typ struktury zawierajacy podstawowe dane silnika
+ *
+ */
+typedef struct EngineData {
+	GameMainWindow* window;
+	sf::SoundBuffer soundBuffer;
+	StateMachine stateMachine;
+	AssetManager assetManager;
+	InputManager inputManager;
+} EngineData;
 
 class Engine
 {
@@ -20,12 +34,15 @@ public:
 	}
 	void run();
 
-private:
-	GameMainWindow* window;
-	sf::Event sfEvent;
+protected:
+	void handleEvent();
 
-	//Engine main loop timers
-	sf::Clock clock;
-	sf::Time gameTime;
+	Logger pLogger;
+	EngineData pEngineData;
+	sf::Event pEvent;
+
+private:
+	sf::Clock mClock;
+	float dt;
 };
 
