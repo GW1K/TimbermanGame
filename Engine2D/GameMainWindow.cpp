@@ -11,7 +11,7 @@ GameMainWindow::GameMainWindow()
 	else
 	{
 		this->create(this->resolution, this->title,
-			sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize
+			sf::Style::Titlebar | sf::Style::Close
 		);
 	}
 	this->setFramerateLimit(this->frameRateLimit);
@@ -29,8 +29,8 @@ void GameMainWindow::initVideoSettings()
 	this->fullscreen = false;
 	this->vSync = false;
 	this->frameRateLimit = 120;
-	this->resolution.width = 1920;
-	this->resolution.height = 1080;
+	this->resolution.width = 1024;
+	this->resolution.height = 720;
 }
 
 GameMenu* GameMainWindow::getStartMenu()

@@ -1,7 +1,6 @@
 #include "Player.h"
 Player::Player(sf::RenderWindow* window):LoadObject("./Assets/objects/player.png")
 {
-	//Pokazowo ko³o potem bedzie teksturowanie obiektu
 	this->window = window;
 	objectTxt.loadFromFile(path);
 	objectSprite.setTexture(objectTxt);
