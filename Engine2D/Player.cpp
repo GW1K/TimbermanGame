@@ -1,18 +1,18 @@
 #include "Player.h"
-Player::Player(sf::RenderWindow* window)
+Player::Player(sf::RenderWindow* window):LoadObject("./Assets/objects/player.png")
 {
 	//Pokazowo ko³o potem bedzie teksturowanie obiektu
 	this->window = window;
-	player.setRadius(25);
-	player.setFillColor(sf::Color::Magenta);
-	player.setPosition(sf::Vector2f(this->window->getSize().x/2+100,this->window->getSize().y/2));
+	objectTxt.loadFromFile(path);
+	objectSprite.setTexture(objectTxt);
+	objectSprite.setPosition(sf::Vector2f(this->window->getSize().x/2+100,this->window->getSize().y/2));
 }
 void Player::moveRight() {
-	player.setPosition(this->window->getSize().x / 2+100, this->window->getSize().y /2);
+	objectSprite.setPosition(this->window->getSize().x / 2+100, this->window->getSize().y /2);
 }
 void Player::moveLeft() {
-	player.setPosition(this->window->getSize().x / 2-100, this->window->getSize().y / 2);
+	objectSprite.setPosition(this->window->getSize().x / 2-100, this->window->getSize().y / 2);
 }
 void Player::draw() {
-	window->draw(player);
+	window->draw(objectSprite);
 }

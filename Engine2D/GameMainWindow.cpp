@@ -29,8 +29,8 @@ void GameMainWindow::initVideoSettings()
 	this->fullscreen = false;
 	this->vSync = false;
 	this->frameRateLimit = 120;
-	this->resolution.width = 1024;
-	this->resolution.height = 720;
+	this->resolution.width = 1920;
+	this->resolution.height = 1080;
 }
 
 GameMenu* GameMainWindow::getStartMenu()

@@ -1,8 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include "LoadObject.h"
 
-class Player
+class Player : public LoadObject
 {
 private:
 	sf::CircleShape player;

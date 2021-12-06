@@ -14,7 +14,8 @@ Engine::~Engine()
 void Engine::run()
 {
 	Player player(window);
-	Background background(window);
+	Background menuBackground(window,"./Assets/background/menubg.png");
+	Background gameBackground(window, "./Assets/background/gamebg.png");
 	while (this->window->isOpen())
 	{
 		while (this->window->pollEvent(this->sfEvent))
@@ -69,14 +70,15 @@ void Engine::run()
 		}
 
 		window->clear();
-		background.draw();
 		
 		if (this->window->getCurrentScreen() == GameScreens::MENU_SCREEN)
 		{
+			menuBackground.draw();
 			this->window->getStartMenu()->draw();
 		}
 		if (this->window->getCurrentScreen() == GameScreens::GAME_SCREEN)
 		{
+			gameBackground.draw();
 			player.draw();
 		}
 		
