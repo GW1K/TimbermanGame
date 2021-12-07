@@ -2,7 +2,7 @@
 #include <iostream>
 
 GameState::GameState(EngineData& engineData) :
-	mEngineData(engineData), mLogger("../Logger.txt"), player(engineData.window)
+	mEngineData(engineData), mLogger("../Logger.txt"), player(engineData.window), log(engineData.window)
 {
 }
 
@@ -31,10 +31,12 @@ void GameState::handleInput()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
 	{
 		player.moveRight();
+		log.setLeft();
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
 	{
 		player.moveLeft();
+		log.setRight();
 	}
 }
 
@@ -47,6 +49,8 @@ void GameState::draw(float dt)
 	this->mEngineData.window->clear();
 
 	this->mEngineData.window->draw(this->background);
+	this->log.update(dt);
+	this->log.draw();
 	this->player.draw();
 
 	this->mEngineData.window->display();

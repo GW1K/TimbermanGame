@@ -2,6 +2,7 @@
 #include "State.h"
 #include "Engine.h"
 #include "Player.h"
+#include "Log.h"
 
 class GameState : public State
 {
@@ -19,6 +20,8 @@ private:
 
 	sf::Sprite background;
 	Player player;
+	Log log;
+	
 
 	EngineData& mEngineData;
 	Logger mLogger;

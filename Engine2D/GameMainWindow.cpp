@@ -22,8 +22,8 @@ void GameMainWindow::initVideoSettings()
 	this->title = "Timberman";
 	this->fullscreen = false;
 	this->vSync = false;
-	this->resolution.width = 1024;
-	this->resolution.height = 720;
+	this->resolution.width = 1920;
+	this->resolution.height = 1080;
 	this->frameRateLimit = 60;
 }
 
