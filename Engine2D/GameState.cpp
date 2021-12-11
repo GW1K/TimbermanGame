@@ -16,6 +16,9 @@ GameState::~GameState()
 void GameState::init()
 {
 	this->mEngineData.assetManager.loadTexture("gameBackground", "./Assets/background/test.png");
+	this->mEngineData.assetManager.loadSound("gameWoodBreak", "./Assets/sounds/wood_break.ogg", this->mEngineData.soundBuffer);
+
+	this->mEngineData.assetManager.getSound("gameWoodBreak").setVolume(30.0f);
 
 	this->background.setTexture(this->mEngineData.assetManager.getTexture("gameBackground"));
 	this->background.setPosition(0, 0);
@@ -32,10 +35,13 @@ void GameState::handleInput()
 		player.animationReset();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
 		{
+			this->mEngineData.assetManager.loadSound("mainMenuButtonClick", "./Assets/sounds/menu_click.ogg", this->mEngineData.soundBuffer);
+			this->mEngineData.assetManager.getSound("mainMenuButtonClick").setVolume(30.0f);
 			this->mEngineData.stateMachine.removeState();
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
 		{
+			this->mEngineData.assetManager.getSound("gameWoodBreak").play();
 			score++;
 			player.moveRight();
 			tree.updateBranches(score);
@@ -44,6 +50,7 @@ void GameState::handleInput()
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
 		{
+			this->mEngineData.assetManager.getSound("gameWoodBreak").play();
 			score++;
 			player.moveLeft();
 			tree.updateBranches(score);

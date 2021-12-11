@@ -18,6 +18,9 @@ void MainMenuState::init()
 	this->mEngineData.assetManager.loadTexture("mainMenuButton", "./Assets/menu/btn.png");
 	this->mEngineData.assetManager.loadTexture("mainMenuButtonFoc", "./Assets/menu/btn_focus.png");
 	this->mEngineData.assetManager.loadTexture("mainMenuButtonSel", "./Assets/menu/btn_sel.png");
+	this->mEngineData.assetManager.loadSound("mainMenuButtonClick", "./Assets/sounds/menu_click.ogg", this->mEngineData.soundBuffer);
+	
+	this->mEngineData.assetManager.getSound("mainMenuButtonClick").setVolume(30.0f);
 
 	this->background.setTexture(this->mEngineData.assetManager.getTexture("mainMenuBackground"));
 	this->background.setPosition(0 ,0);
@@ -79,12 +82,14 @@ void MainMenuState::handleInput()
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
 	{
+		this->mEngineData.assetManager.getSound("mainMenuButtonClick").play();
 		if (this->selectedIndex == 0)
 		{
 			this->mEngineData.stateMachine.addState((State*) new GameState(mEngineData), false);
 		}
 		if (this->selectedIndex == 1)
 		{
+			sf::sleep(sf::milliseconds(100));
 			this->mEngineData.window->close();
 		}
 	}
