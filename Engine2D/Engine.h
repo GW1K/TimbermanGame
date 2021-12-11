@@ -41,8 +41,13 @@ protected:
 	Logger pLogger;
 	EngineData pEngineData;
 	sf::Event pEvent;
+	bool showAxis;
 
 private:
+	void drawAxis();
+
+	sf::Vertex axisLines[2][2];
+
 	sf::Clock mClock;
 	float dt;
 };

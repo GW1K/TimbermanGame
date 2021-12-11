@@ -5,10 +5,18 @@
 #include "MainMenuState.h"
 
 Engine::Engine():
-	pLogger("../Logger.txt"), dt(1.0f / 60.0f)
+	pLogger("../Logger.txt"), dt(1.0f / 60.0f), showAxis(false)
 {
 	pEngineData.window = new GameMainWindow();
 	pEngineData.stateMachine.addState((State*)new MainMenuState(pEngineData));
+
+	if (this->showAxis)
+	{
+		this->axisLines[0][0].position = sf::Vector2f(0.0f, pEngineData.window->getSize().y / 2.0f);
+		this->axisLines[0][1].position = sf::Vector2f((float)pEngineData.window->getSize().x, pEngineData.window->getSize().y / 2.0f);
+		this->axisLines[1][0].position = sf::Vector2f(pEngineData.window->getSize().x / 2.0f, 0.0f);
+		this->axisLines[1][1].position = sf::Vector2f(pEngineData.window->getSize().x / 2.0f, (float)pEngineData.window->getSize().y);
+	}
 }
 
 Engine::~Engine()
@@ -47,8 +55,17 @@ void Engine::run()
 			accumulator -= dt;
 		}
 		interpolation = accumulator / dt;
+		this->pEngineData.window->clear();
 		this->pEngineData.stateMachine.getCurrentState().draw(interpolation);
+		if (this->showAxis) this->drawAxis();
+		this->pEngineData.window->display();
 	}
+}
+
+void Engine::drawAxis()
+{
+	this->pEngineData.window->draw(this->axisLines[0], 2, sf::Lines);
+	this->pEngineData.window->draw(this->axisLines[1], 2, sf::Lines);
 }
 
 /**

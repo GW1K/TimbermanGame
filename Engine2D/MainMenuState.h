@@ -16,7 +16,8 @@ private:
 	void moveUp();
 	void moveDown();
 
-	sf::Text text[2];
+	sf::Text buttonsText[2];
+	sf::Sprite buttons[2];
 	sf::Sprite background;
 	int selectedIndex;
 

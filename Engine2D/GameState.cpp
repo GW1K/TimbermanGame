@@ -68,12 +68,8 @@ void GameState::update(float dt)
 
 void GameState::draw(float dt)
 {
-	this->mEngineData.window->clear();
-
 	this->mEngineData.window->draw(this->background);
 	this->tree.draw();
 	this->log.draw();
 	this->player.draw();
-
-	this->mEngineData.window->display();
 }
