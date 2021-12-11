@@ -29,6 +29,7 @@ void GameState::handleInput()
 {
 	if (this->mEngineData.input)
 	{
+		player.animationReset();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
 		{
 			this->mEngineData.stateMachine.removeState();
@@ -55,6 +56,7 @@ void GameState::handleInput()
 
 void GameState::update(float dt)
 {
+	player.animation();
 	tree.update(dt);
 	log.update(dt);
 	if (tree.getNearestBranch() == player.getPlayerSide())

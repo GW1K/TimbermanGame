@@ -1,6 +1,6 @@
 #include "Tree.h"
 
-Tree::Tree(sf::RenderWindow* window) :LoadObject("./Assets/objects/test.png"), pLogger("../Logger.txt")
+Tree::Tree(sf::RenderWindow* window) :LoadObject("./Assets/objects/tree.png"), pLogger("../Logger.txt")
 {
 	this->window = window;
 	objectTxt.loadFromFile(path);
@@ -8,9 +8,9 @@ Tree::Tree(sf::RenderWindow* window) :LoadObject("./Assets/objects/test.png"), p
 	objectSprite.setPosition(sf::Vector2f(this->window->getSize().x / 2 - 75, -225));
 	objectSprite.setScale(sf::Vector2f(0.4, 0.35));
 	pLogger.log("Loaded Tree texture: " + path);
-	pLogger.log("Loaded Branch texture: ./Assets/objects/liscie.png");
+	pLogger.log("Loaded Branch texture: ./Assets/objects/leaves.png");
 
-	branch.loadFromFile("./Assets/objects/liscie.png");
+	branch.loadFromFile("./Assets/objects/leaves.png");
 	for (int i = 0; i < 6; i++)
 	{
 		branches[i].setTexture(branch);
