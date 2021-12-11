@@ -3,6 +3,7 @@
 #include "Engine.h"
 #include "Player.h"
 #include "Log.h"
+#include "Tree.h"
 
 class GameState : public State
 {
@@ -21,7 +22,9 @@ private:
 	sf::Sprite background;
 	Player player;
 	Log log;
+	Tree tree;
 	
+	int score = 0;
 
 	EngineData& mEngineData;
 	Logger mLogger;

@@ -7,6 +7,7 @@ private:
 	float logSpeedX;
 	float logSpeedY;
 	bool logActive;
+	Logger pLogger;
 public:
 	Log(sf::RenderWindow* window);
 	void setRight();

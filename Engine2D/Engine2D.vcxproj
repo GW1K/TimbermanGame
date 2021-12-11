@@ -158,6 +158,7 @@
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="StateMachine.cpp" />
+    <ClCompile Include="Tree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetManager.h" />
@@ -173,6 +174,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
+    <ClInclude Include="Tree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

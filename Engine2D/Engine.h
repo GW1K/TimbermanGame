@@ -16,6 +16,7 @@ typedef struct EngineData {
 	StateMachine stateMachine;
 	AssetManager assetManager;
 	InputManager inputManager;
+	bool input;
 } EngineData;
 
 class Engine

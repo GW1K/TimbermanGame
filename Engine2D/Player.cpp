@@ -1,18 +1,28 @@
 #include "Player.h"
-Player::Player(sf::RenderWindow* window):LoadObject("./Assets/objects/player.png")
+Player::Player(sf::RenderWindow* window) :LoadObject("./Assets/objects/steave.png"), pLogger("../Logger.txt")
 {
 	this->window = window;
 	objectTxt.loadFromFile(path);
 	objectSprite.setTexture(objectTxt);
-	objectSprite.setPosition(sf::Vector2f(this->window->getSize().x / 2 - 75, this->window->getSize().y / 2 + 150));
-	objectSprite.setScale(sf::Vector2f(0.8, 0.8));
+	pLogger.log("Loaded player texture: " + path);
+
 }
 void Player::moveRight() {
-	objectSprite.setPosition(this->window->getSize().x / 2+100, this->window->getSize().y /2);
+	objectSprite.setPosition(this->window->getSize().x / 2 + 300, this->window->getSize().y / 2 + 75);
+	objectSprite.setScale(sf::Vector2f(-1.1, 1.1));
+	playerSide = side::RIGHT;
+
 }
 void Player::moveLeft() {
-	objectSprite.setPosition(this->window->getSize().x / 2-100, this->window->getSize().y / 2);
+	objectSprite.setPosition(this->window->getSize().x / 2 - 300, this->window->getSize().y / 2 + 75);
+	objectSprite.setScale(sf::Vector2f(1.1, 1.1));
+	playerSide = side::LEFT;
 }
 void Player::draw() {
 	window->draw(objectSprite);
+}
+
+side Player::getPlayerSide() const
+{
+	return playerSide;
 }

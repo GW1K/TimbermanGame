@@ -41,7 +41,6 @@ void Engine::run()
 		while (accumulator >= dt)
 		{
 			handleEvent();
-
 			this->pEngineData.stateMachine.getCurrentState().handleInput();
 			this->pEngineData.stateMachine.getCurrentState().update(dt);
 
@@ -62,6 +61,9 @@ void Engine::handleEvent()
 	{
 		switch (pEvent.type)
 		{
+		case sf::Event::KeyReleased:
+			this->pEngineData.input = true;
+			break;
 		case sf::Event::Closed:
 			pEngineData.window->close();
 			pLogger.log("Application closed");

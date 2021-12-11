@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Logger.h"
 class LoadObject
 {
 protected:
@@ -9,6 +10,7 @@ protected:
 public:
 	LoadObject();
 	LoadObject(std::string path);
+	void load(std::string path);
 	virtual void draw() = 0;
 };
 
