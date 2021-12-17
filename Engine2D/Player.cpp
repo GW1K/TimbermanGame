@@ -41,3 +41,8 @@ side Player::getPlayerSide() const
 {
 	return playerSide;
 }
+
+sf::Sprite Player::getPlayerSprite()
+{
+	return this->sSpritePlayer;
+}

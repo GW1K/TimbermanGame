@@ -1,25 +1,18 @@
-#include "MainMenuState.h"
+#include "GameOverState.h"
 #include "GameState.h"
 #include <iostream>
 
-MainMenuState::MainMenuState(EngineData& engineData):
-	mEngineData(engineData), mLogger("../Logger.txt")
+GameOverState::GameOverState(EngineData& engineData, int score) :
+	mEngineData(engineData), mLogger("../Logger.txt"), score(score)
 {
 }
 
-MainMenuState::~MainMenuState()
+GameOverState::~GameOverState()
 {
 }
 
-void MainMenuState::init()
+void GameOverState::init()
 {
-	this->mEngineData.assetManager.loadFont("mainMenuFont", "./Assets/fonts/font.ttf");
-	this->mEngineData.assetManager.loadTexture("mainMenuBackground", "./Assets/background/menubg.png");
-	this->mEngineData.assetManager.loadTexture("mainMenuButton", "./Assets/menu/btn.png");
-	this->mEngineData.assetManager.loadTexture("mainMenuButtonFoc", "./Assets/menu/btn_focus.png");
-	this->mEngineData.assetManager.loadTexture("mainMenuButtonSel", "./Assets/menu/btn_sel.png");
-	this->mEngineData.assetManager.loadSound("mainMenuButtonClick", "./Assets/sounds/menu_click.ogg", this->mEngineData.soundBuffer);
-	
 	this->mEngineData.assetManager.getSound("mainMenuButtonClick").setVolume(30.0f);
 
 	this->background.setTexture(this->mEngineData.assetManager.getTexture("mainMenuBackground"));
@@ -37,7 +30,7 @@ void MainMenuState::init()
 		mEngineData.window->getSize().x / 2.0f - this->buttons[0].getLocalBounds().width * 2.5f / 2.0f,
 		mEngineData.window->getSize().y / 2.0f - this->buttons[0].getLocalBounds().height * 2.5f / 2.0f - buttonsMargin
 	));
-	
+
 	this->buttons[1].setTexture(this->mEngineData.assetManager.getTexture("mainMenuButton"));
 	this->buttons[1].setScale(sf::Vector2f(2.5f, 2.5f));
 	this->buttons[1].setPosition(sf::Vector2f(
@@ -46,11 +39,19 @@ void MainMenuState::init()
 	));
 
 	this->buttonsText[0].setFont(this->mEngineData.assetManager.getFont("mainMenuFont"));
-	this->buttonsText[0].setString("Play");
+	this->buttonsText[0].setString("Try again");
 	this->buttonsText[0].setCharacterSize(30);
 	this->buttonsText[0].setPosition(sf::Vector2f(
 		mEngineData.window->getSize().x / 2.0f - this->buttonsText[0].getLocalBounds().width / 2.0f,
 		mEngineData.window->getSize().y / 2.0f - this->buttonsText[0].getLocalBounds().height / 2.0f - buttonsMargin - 5.0f
+	));
+
+	this->scoreLabel.setFont(this->mEngineData.assetManager.getFont("mainMenuFont"));
+	this->scoreLabel.setString("Your score: " + std::to_string(score));
+	this->scoreLabel.setCharacterSize(40);
+	this->scoreLabel.setPosition(sf::Vector2f(
+		mEngineData.window->getSize().x / 2.0f - this->scoreLabel.getLocalBounds().width / 2.0f,
+		this->buttons[0].getPosition().y - 2.0f * buttonsMargin
 	));
 
 	this->buttonsText[1].setFont(this->mEngineData.assetManager.getFont("mainMenuFont"));
@@ -63,7 +64,7 @@ void MainMenuState::init()
 	this->selectedIndex = 0;
 }
 
-void MainMenuState::handleInput()
+void GameOverState::handleInput()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
 	{
@@ -78,7 +79,7 @@ void MainMenuState::handleInput()
 		this->mEngineData.assetManager.getSound("mainMenuButtonClick").play();
 		if (this->selectedIndex == 0)
 		{
-			this->mEngineData.stateMachine.addState((State*) new GameState(mEngineData), false);
+			this->mEngineData.stateMachine.addState((State*) new GameState(mEngineData), true);
 		}
 		if (this->selectedIndex == 1)
 		{
@@ -88,7 +89,7 @@ void MainMenuState::handleInput()
 	}
 }
 
-void MainMenuState::update(float dt)
+void GameOverState::update(float dt)
 {
 	for (int i = 0; i < 2; i++)
 	{
@@ -99,13 +100,14 @@ void MainMenuState::update(float dt)
 	this->buttonsText[selectedIndex].setFillColor(sf::Color::Yellow);
 }
 
-void MainMenuState::draw(float dt)
+void GameOverState::draw(float dt)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
 	{
 		this->buttons[selectedIndex].setTexture(this->mEngineData.assetManager.getTexture("mainMenuButtonSel"));
 	}
 	this->mEngineData.window->draw(this->background);
+	this->mEngineData.window->draw(this->scoreLabel);
 	for (int i = 0; i < 2; i++)
 	{
 		this->mEngineData.window->draw(this->buttons[i]);
@@ -113,7 +115,7 @@ void MainMenuState::draw(float dt)
 	}
 }
 
-void MainMenuState::moveUp()
+void GameOverState::moveUp()
 {
 	if (selectedIndex - 1 >= 0)
 	{
@@ -121,7 +123,7 @@ void MainMenuState::moveUp()
 	}
 }
 
-void MainMenuState::moveDown()
+void GameOverState::moveDown()
 {
 	if (selectedIndex + 1 < 2)
 	{

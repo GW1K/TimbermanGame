@@ -23,5 +23,6 @@ public:
 	void animationReset();
 	virtual void draw();
 	side getPlayerSide() const;
+	sf::Sprite getPlayerSprite();
 };
 

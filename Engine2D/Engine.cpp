@@ -5,7 +5,7 @@
 #include "MainMenuState.h"
 
 Engine::Engine():
-	pLogger("../Logger.txt"), dt(1.0f / 60.0f), showAxis(false)
+	pLogger("../Logger.txt"), dt(1.0f / 60.0f), showAxis(true)
 {
 	pEngineData.window = new GameMainWindow();
 	pEngineData.stateMachine.addState((State*)new MainMenuState(pEngineData));

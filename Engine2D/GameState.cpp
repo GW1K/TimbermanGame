@@ -1,4 +1,5 @@
 #include "GameState.h"
+#include "GameOverState.h"
 #include <iostream>
 
 GameState::GameState(EngineData& engineData) :
@@ -26,6 +27,13 @@ void GameState::init()
 		this->mEngineData.window->getSize().x / this->background.getLocalBounds().width,
 		this->mEngineData.window->getSize().y / this->background.getLocalBounds().height
 	);
+	this->scoreLabel.setFont(this->mEngineData.assetManager.getFont("mainMenuFont"));
+	this->scoreLabel.setString("Your score: 0");
+	this->scoreLabel.setCharacterSize(40);
+	this->scoreLabel.setPosition(sf::Vector2f(
+		mEngineData.window->getSize().x / 2.0f - this->scoreLabel.getLocalBounds().width / 2.0f,
+		mEngineData.window->getSize().y - 150.0f
+	));
 }
 
 void GameState::handleInput()
@@ -68,8 +76,17 @@ void GameState::update(float dt)
 	log.update(dt);
 	if (tree.getNearestBranch() == player.getPlayerSide())
 	{
+		this->mEngineData.assetManager.loadSound("playerHit", "./Assets/sounds/player_hit.ogg", this->mEngineData.soundBuffer);
+		this->mEngineData.assetManager.getSound("playerHit").play();
 		this->mEngineData.input = false;
 		this->tree.dissapearAllBranches();
+		sf::sleep(sf::milliseconds(250));
+		this->mEngineData.stateMachine.addState((State*) new GameOverState(mEngineData, score), true);
+		this->mEngineData.assetManager.loadSound("mainMenuButtonClick", "./Assets/sounds/menu_click.ogg", this->mEngineData.soundBuffer);
+		this->mEngineData.assetManager.getSound("mainMenuButtonClick").setVolume(30.0f);
+	}
+	else {
+		this->scoreLabel.setString("Your score: " + std::to_string(score));
 	}
 }
 
@@ -79,4 +96,5 @@ void GameState::draw(float dt)
 	this->tree.draw();
 	this->log.draw();
 	this->player.draw();
+	this->mEngineData.window->draw(this->scoreLabel);
 }

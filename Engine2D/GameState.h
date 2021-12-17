@@ -23,6 +23,7 @@ private:
 	Player player;
 	Log log;
 	Tree tree;
+	sf::Text scoreLabel;
 	
 	int score = 0;
 
